@@ -14,6 +14,26 @@ export interface User {
     name: string;
 }
 
+export interface Owner {
+	username: string;
+	objectId: string;
+}
+
+export interface Product {
+	description: string;
+	name: string;
+	price: string;
+	owner: Owner;
+	img: string;
+	objectId: string;
+	createdAt: string;
+	updatedAt: string;
+}
+
+export type HomeProducts = {
+    products: Product[]
+};
+
 export interface UserProfile {
     id: string;
     email: string;
@@ -37,13 +57,19 @@ export interface UserLoginAction extends GeneralAction {
 export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile
 }
+export interface FetchHomeProductsAction extends GeneralAction {
+    payload?: Product[];
+}
 
 // STATES
 export type AppState = App;
 export type UserState = User;
+export type HomeProductsState = HomeProducts;
+
 
 export interface RootState {
     user?: UserState,
     app?: AppState,
+    home?: HomeProductsState;
     nav?: any,
 }
