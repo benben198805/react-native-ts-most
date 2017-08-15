@@ -1,17 +1,19 @@
 import * as React from 'react'
-import { StyleSheet, View, FlatList} from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 import { connect, DispatchProp } from 'react-redux';
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
+import { getHomeProducts, setCurrentProduct } from '../../modules/home/actions';
 import { Product } from '../../components';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
   getHomeProducts: typeof getHomeProducts;
+  setCurrentProduct: typeof setCurrentProduct;
+  navigate: typeof NavigationActions.navigate;
 }
 
 class HomeScreen extends React.PureComponent<HomePageProps, any> {
@@ -23,7 +25,12 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
   }
 
   handlePressCell = (item: D.Product) => () => {
-    console.log(123123, item)
+    const { objectId } = item;
+    this.props.setCurrentProduct({ objectId })
+    // this.props.navigate({
+    //   routeName: 'Detail',
+    //   action: NavigationActions.navigate({ routeName: 'Detail' }),
+    // })
   }
 
   keyExtractor = (item: D.Product) => item.objectId
@@ -54,7 +61,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
         <Button
           title="Go to Others"
           onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'others' }))
+            {/* this.props.navigate({ routeName: 'others' }) */}
           }}
         />
       </View>
@@ -91,6 +98,8 @@ function mapStateToProps(state: D.RootState) {
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
     getHomeProducts: () => dispatch(getHomeProducts()),
+    setCurrentProduct: (currentProduct: D.CurrentProduct) => dispatch(setCurrentProduct(currentProduct)),
+    navigate: NavigationActions.navigate,
   };
 }
 
