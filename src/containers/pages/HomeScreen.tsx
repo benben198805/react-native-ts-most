@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions';
 import { getHomeProducts } from '../../modules/home/actions';
-import { ProductDetail } from '../../components';
+import { Product } from '../../components';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
@@ -31,7 +31,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
   renderItem = ({ item, index }: { item: D.Product, index: number }) => {
     console.log(item)
     return (
-      <ProductDetail
+      <Product
         img={item.img}
         title={item.name}
         price={item.price}
