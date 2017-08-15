@@ -15,23 +15,28 @@ export interface User {
 }
 
 export interface Owner {
-	username: string;
-	objectId: string;
+    username: string;
+    objectId: string;
 }
 
 export interface Product {
-	description: string;
-	name: string;
-	price: string;
-	owner: Owner;
-	img: string;
-	objectId: string;
-	createdAt: string;
-	updatedAt: string;
+    description: string;
+    name: string;
+    price: string;
+    owner: Owner;
+    img: string;
+    objectId: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface CurrentProduct {
+    objectId: string;
 }
 
 export type HomeProducts = {
-    products: Product[]
+    products: Product[],
+    current: CurrentProduct,
 };
 
 export interface UserProfile {
@@ -59,6 +64,9 @@ export interface UserAction extends GeneralAction {
 }
 export interface FetchHomeProductsAction extends GeneralAction {
     payload?: Product[];
+}
+export interface FetchProductAction extends GeneralAction {
+    payload?: CurrentProduct;
 }
 
 // STATES

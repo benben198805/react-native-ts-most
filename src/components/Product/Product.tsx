@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 import { User, Price } from "../index";
 import * as React from "react";
 
-export interface ProductDetailProps {
+export interface ProductProps {
   img: string;
   title: string;
   price: string;
@@ -12,10 +12,10 @@ export interface ProductDetailProps {
   onClick: () => void;
 }
 
-class ProductDetail extends React.PureComponent<ProductDetailProps, any> {
+class Product extends React.PureComponent<ProductProps, any> {
   render() {
     return (
-      <View style={styles.productDetail}>
+      <TouchableOpacity style={styles.product} onPress={this.props.onClick}>
         <View style={styles.image}>
           <Image
             style={styles.productImg}
@@ -32,14 +32,14 @@ class ProductDetail extends React.PureComponent<ProductDetailProps, any> {
             <User name={this.props.owner} />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
-export default ProductDetail
+export default Product
 
 const styles = StyleSheet.create({
-  productDetail: {
+  product: {
     marginTop: 20,
     width: Dimensions.get('window').width,
     flexDirection: 'row',

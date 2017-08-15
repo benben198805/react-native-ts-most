@@ -1,9 +1,9 @@
 import Price from './Price/Price';
 import User from './User/User';
-import ProductDetail from './ProductDetail/ProdcutDetail';
+import Product from './Product/Product';
 
 export {
   Price,
   User,
-  ProductDetail,
+  Product,
 };
