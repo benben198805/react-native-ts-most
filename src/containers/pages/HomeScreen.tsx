@@ -1,18 +1,67 @@
 import * as React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { connect } from 'react-redux'
+import { StyleSheet, View, FlatList } from 'react-native'
+import { connect, DispatchProp } from 'react-redux';
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
-class HomeScreen extends React.Component<any, any> {
+
+import * as D from '../../definitions';
+import { getHomeProducts, setCurrentProduct } from '../../modules/home/actions';
+import { Product } from '../../components';
+
+interface HomePageProps extends DispatchProp<void> {
+  products: D.Product[];
+  getHomeProducts: typeof getHomeProducts;
+  setCurrentProduct: typeof setCurrentProduct;
+  navigate: typeof NavigationActions.navigate;
+}
+
+class HomeScreen extends React.PureComponent<HomePageProps, any> {
+  static navigationOptions = {
+    title: '精选',
+  }
+  componentDidMount() {
+    this.props.getHomeProducts();
+  }
+
+  handlePressCell = (item: D.Product) => () => {
+    const { objectId } = item;
+    this.props.setCurrentProduct({ objectId })
+    // this.props.navigate({
+    //   routeName: 'Detail',
+    //   action: NavigationActions.navigate({ routeName: 'Detail' }),
+    // })
+  }
+
+  keyExtractor = (item: D.Product) => item.objectId
+
+  renderItem = ({ item, index }: { item: D.Product, index: number }) => {
+    console.log(item)
+    return (
+      <Product
+        img={item.img}
+        title={item.name}
+        price={item.price}
+        owner={item.owner.username}
+        details={item.description}
+        onClick={this.handlePressCell(item)}
+      />
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home !</Text>
+        <FlatList
+          style={styles.list}
+          data={this.props.products}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem}
+        />
         <Button
           title="Go to Others"
           onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'others' }))
+            {/* this.props.navigate({ routeName: 'others' }) */}
           }}
         />
       </View>
@@ -27,6 +76,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  list: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+  },
+  text: {
+    flex: 1,
+    color: '#000'
+  }
 })
 
-export default connect()(HomeScreen)
+function mapStateToProps(state: D.RootState) {
+  console.log(state)
+  return {
+    products: state.home.products,
+  };
+}
+
+function mapDispatchToProps(dispatch: (actions: {}) => void) {
+  return {
+    getHomeProducts: () => dispatch(getHomeProducts()),
+    setCurrentProduct: (currentProduct: D.CurrentProduct) => dispatch(setCurrentProduct(currentProduct)),
+    navigate: NavigationActions.navigate,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
