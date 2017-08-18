@@ -2,8 +2,8 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
  Features
  
- - Home (Products list) 
- - Product detail
+ - Home (Products list) @qlyan(done)
+ - Product detail @qlyan(done)
 
  - Login @Ning
  - Register 
