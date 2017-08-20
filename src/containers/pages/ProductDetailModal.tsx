@@ -4,12 +4,12 @@ import { connect, DispatchProp } from 'react-redux';
 import { find, get } from 'lodash'
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
+import { buyHomeProduct } from '../../modules/home/actions';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
 
 interface ProductDetailProps extends DispatchProp<void> {
   products: D.Product[];
-  getHomeProducts: typeof getHomeProducts;
+  buyHomeProduct: typeof buyHomeProduct;
 }
 
 interface IOwnState {
@@ -27,25 +27,23 @@ class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnSta
     const { params } = props.navigation.state;
     const objectId = get(params, 'objectId')
     if (objectId) {
-      console.log('objectId', objectId)
-      console.log('products', props.products)
       this.state = {
         product: find(props.products, { 'objectId': objectId })
       }
-      console.log(this.state.product)
     }
   }
 
-  handlePressCell = () => {
-    console.log(123123)
+  handlePressCell = (objectId: string) => () => {
+    this.props.buyHomeProduct({ objectId })
   }
 
   render() {
+    const { objectId } = this.state.product
     return (
       <View style={styles.container}>
         {this.state.product && (<ProductDetail
           product={this.state.product}
-          onClick={this.handlePressCell}
+          onClick={this.handlePressCell(objectId)}
         />)}
       </View>
     )
@@ -67,7 +65,7 @@ function mapStateToProps(state: D.RootState) {
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    getHomeProducts: () => dispatch(getHomeProducts()),
+    buyHomeProduct: ({ objectId }) => dispatch(buyHomeProduct({ objectId })),
   };
 }
 

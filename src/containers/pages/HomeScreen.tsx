@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import { connect, DispatchProp } from 'react-redux';
-import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 
@@ -34,7 +33,6 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
   keyExtractor = (item: D.Product) => item.objectId
 
   renderItem = ({ item, index }: { item: D.Product, index: number }) => {
-    console.log(item)
     return (
       <Product
         img={item.img}
@@ -55,12 +53,6 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
           data={this.props.products}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
-        />
-        <Button
-          title="Go to Others"
-          onPress={() => {
-            {/* this.props.navigate({ routeName: 'others' }) */ }
-          }}
         />
       </View>
     )
@@ -87,7 +79,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state: D.RootState) {
-  console.log(state)
   return {
     products: state.home.products,
   };

@@ -30,6 +30,13 @@ export interface Product {
     updatedAt: string;
 }
 
+
+export interface BuyProductResponse {
+	buyer: Owner;
+	objectId: string;
+	updatedAt: string;
+}
+
 export interface CurrentProduct {
     objectId: string;
 }
@@ -64,7 +71,7 @@ export interface UserAction extends GeneralAction {
 export interface FetchHomeProductsAction extends GeneralAction {
     payload?: Product[];
 }
-export interface FetchProductAction extends GeneralAction {
+export interface BuyProductAction extends GeneralAction {
     payload?: CurrentProduct;
 }
 

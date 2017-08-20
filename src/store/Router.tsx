@@ -5,7 +5,6 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import { homePages } from './pages';
