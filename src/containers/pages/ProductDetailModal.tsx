@@ -6,6 +6,7 @@ import { find, get } from 'lodash'
 import * as D from '../../definitions';
 import { buyHomeProduct } from '../../modules/home/actions';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
+import COLOR from '../../constant/color';
 
 interface ProductDetailProps extends DispatchProp<void> {
   products: D.Product[];
@@ -53,7 +54,7 @@ class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnSta
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
   },
 })
 

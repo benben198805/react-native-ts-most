@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { StyleSheet, View, Image, TextInput, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, Text } from 'react-native';
 import { connect, DispatchProp } from 'react-redux';
 import { NavigationActions } from 'react-navigation'
-import { Button } from 'react-native-elements';
 
 
 import * as D from '../../definitions';
 import { userRegister } from '../../modules/user/actions';
+import COLOR from '../../constant/color';
+import { Input, Button } from "../../components/index";
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
@@ -63,30 +64,29 @@ class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
           />
         </View>
         <View style={styles.form}>
-          <TextInput
-            style={styles.input}
+          <Input
+            inputStyle={styles.input}
             placeholder='用户名'
-            onChangeText={(username) => this.setState({ username })}
+            onChange={(username) => this.setState({ username })}
           />
-          <TextInput
-            style={styles.input}
+          <Input
+            inputStyle={styles.input}
             placeholder='密码'
-            secureTextEntry={true}
-            onChangeText={(password) => this.setState({ password })}
+            isPass={true}
+            onChange={(password) => this.setState({ password })}
           />
-          <TextInput
-            style={styles.input}
+          <Input
+            inputStyle={styles.input}
             placeholder='确认密码'
-            secureTextEntry={true}
-            onChangeText={(confirm) => this.setState({ confirm })}
+            isPass={true}
+            onChange={(confirm) => this.setState({ confirm })}
           />
           {!!this.state.errorText && (<Text style={styles.error}>
             {this.state.errorText}
           </Text>)}
           <Button
-            buttonStyle={styles.button}
-            title="注册"
             onPress={this.handleRegister}
+            text='注册'
           />
         </View>
       </ScrollView>
@@ -97,7 +97,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -117,18 +117,12 @@ const styles = StyleSheet.create({
     height: 150,
   },
   input: {
-    width: '100%',
     marginBottom: '10%',
-    borderBottomColor: '#979797',
-    borderBottomWidth: 1,
   },
   error: {
-    color: '#F11',
+    color: COLOR.ERROR,
     fontSize: 12,
   },
-  button: {
-    width: '100%',
-  }
 })
 
 function mapStateToProps(state: D.RootState) {

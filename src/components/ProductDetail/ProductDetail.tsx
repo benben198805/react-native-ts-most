@@ -2,9 +2,8 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 
 import * as React from "react";
 
-import { User, Price } from "../index";
+import { User, Price, Button } from "../index";
 import * as D from '../../definitions';
-import { Button } from 'react-native-elements';
 
 
 export interface ProductDetailProps {
@@ -37,7 +36,7 @@ class ProductDetail extends React.PureComponent<ProductDetailProps, any> {
           <Text>
             {this.props.product.description}
           </Text>
-          <Button title="立即购买" onPress={this.props.onClick} />
+          <Button text="立即购买" onPress={this.props.onClick} />
         </View>
       </View>
     )
