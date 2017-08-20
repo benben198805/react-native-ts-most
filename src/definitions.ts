@@ -1,3 +1,4 @@
+import { UserForLogin, UserForRegister } from './definitions';
 import * as Redux from 'redux';
 import * as Navigation from 'react-navigation';
 
@@ -32,9 +33,9 @@ export interface Product {
 
 
 export interface BuyProductResponse {
-	buyer: Owner;
-	objectId: string;
-	updatedAt: string;
+    buyer: Owner;
+    objectId: string;
+    updatedAt: string;
 }
 
 export interface CurrentProduct {
@@ -55,6 +56,10 @@ export interface UserForLogin {
     password: string;
 }
 
+export interface UserForRegister extends UserForLogin {
+
+}
+
 // ACTION CREATORS
 
 
@@ -65,8 +70,11 @@ export interface GeneralAction extends Redux.Action {
 export interface UserLoginAction extends GeneralAction {
     payload?: UserForLogin,
 }
+export interface UserRegisterAction extends GeneralAction {
+    payload?: UserForRegister,
+}
 export interface UserAction extends GeneralAction {
-    payload?: User | UserForLogin | UserProfile
+    payload?: User | UserForLogin | UserProfile | UserForRegister
 }
 export interface FetchHomeProductsAction extends GeneralAction {
     payload?: Product[];

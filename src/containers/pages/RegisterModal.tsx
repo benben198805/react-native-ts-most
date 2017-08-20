@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { StyleSheet, View, Image, TextInput, ScrollView } from 'react-native'
+import { StyleSheet, View, Image, TextInput, ScrollView, Text } from 'react-native';
 import { connect, DispatchProp } from 'react-redux';
 import { NavigationActions } from 'react-navigation'
 import { Button } from 'react-native-elements';
 
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
+import { userRegister } from '../../modules/user/actions';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
-  getHomeProducts: typeof getHomeProducts;
+  userRegister: typeof userRegister;
   navigate: typeof NavigationActions.navigate;
 }
 
@@ -18,6 +18,7 @@ interface IStateProps {
   username: string,
   password: string,
   confirm: string,
+  errorText: string,
 }
 
 class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
@@ -31,11 +32,21 @@ class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
       username: '',
       password: '',
       confirm: '',
+      errorText: '',
     }
   }
 
-  onClick = () => {
-    console.log('register')
+  handleRegister = () => {
+    this.setState({ errorText: '' })
+    if (this.state.confirm !== this.state.password) {
+      this.setState({ errorText: '两次密码输入不一致' })
+    } else {
+      const params = {
+        username: this.state.username,
+        password: this.state.password,
+      }
+      this.props.userRegister(params);
+    }
   }
 
   render() {
@@ -69,10 +80,13 @@ class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
             secureTextEntry={true}
             onChangeText={(confirm) => this.setState({ confirm })}
           />
+          {!!this.state.errorText && (<Text style={styles.error}>
+            {this.state.errorText}
+          </Text>)}
           <Button
             buttonStyle={styles.button}
             title="注册"
-            onPress={this.onClick}
+            onPress={this.handleRegister}
           />
         </View>
       </ScrollView>
@@ -108,6 +122,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#979797',
     borderBottomWidth: 1,
   },
+  error: {
+    color: '#F11',
+    fontSize: 12,
+  },
   button: {
     width: '100%',
   }
@@ -120,7 +138,7 @@ function mapStateToProps(state: D.RootState) {
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    getHomeProducts: () => dispatch(getHomeProducts()),
+    userRegister: (params) => dispatch(userRegister(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }
