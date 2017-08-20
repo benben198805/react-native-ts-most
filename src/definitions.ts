@@ -36,7 +36,6 @@ export interface CurrentProduct {
 
 export type HomeProducts = {
     products: Product[],
-    current: CurrentProduct,
 };
 
 export interface UserProfile {

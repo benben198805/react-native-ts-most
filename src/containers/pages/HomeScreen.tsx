@@ -6,13 +6,12 @@ import { NavigationActions } from 'react-navigation'
 
 
 import * as D from '../../definitions';
-import { getHomeProducts, setCurrentProduct } from '../../modules/home/actions';
+import { getHomeProducts } from '../../modules/home/actions';
 import { Product } from '../../components';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
   getHomeProducts: typeof getHomeProducts;
-  setCurrentProduct: typeof setCurrentProduct;
   navigate: typeof NavigationActions.navigate;
 }
 
@@ -26,11 +25,10 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
 
   handlePressCell = (item: D.Product) => () => {
     const { objectId } = item;
-    this.props.setCurrentProduct({ objectId })
-    // this.props.navigate({
-    //   routeName: 'Detail',
-    //   action: NavigationActions.navigate({ routeName: 'Detail' }),
-    // })
+    this.props.navigate({
+      routeName: 'Detail',
+      params: { objectId },
+    })
   }
 
   keyExtractor = (item: D.Product) => item.objectId
@@ -61,7 +59,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
         <Button
           title="Go to Others"
           onPress={() => {
-            {/* this.props.navigate({ routeName: 'others' }) */}
+            {/* this.props.navigate({ routeName: 'others' }) */ }
           }}
         />
       </View>
@@ -98,8 +96,7 @@ function mapStateToProps(state: D.RootState) {
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
     getHomeProducts: () => dispatch(getHomeProducts()),
-    setCurrentProduct: (currentProduct: D.CurrentProduct) => dispatch(setCurrentProduct(currentProduct)),
-    navigate: NavigationActions.navigate,
+    navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }
 

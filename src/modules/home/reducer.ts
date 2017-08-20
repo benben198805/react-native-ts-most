@@ -3,9 +3,6 @@ import * as Redux from 'redux';
 
 const initialState: D.HomeProductsState = {
     products: [],
-    current: {
-        objectId: '',
-    },
 };
 
 const homeReducer: Redux.Reducer<D.HomeProductsState> = (state: D.HomeProductsState, action: D.GeneralAction): D.HomeProductsState => {
@@ -16,12 +13,6 @@ const homeReducer: Redux.Reducer<D.HomeProductsState> = (state: D.HomeProductsSt
             return {
                 ...state,
                 products,
-            };
-        case 'FETCH_PRODUCTS_SUC':
-            const current = (action.payload as D.CurrentProduct);
-            return {
-                ...state,
-                current,
             };
         default:
     }
