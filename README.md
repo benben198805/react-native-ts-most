@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React Native App](https://github.com/
  - Product detail @qlyan(done)
 
  - Login @Ning
- - Register 
+ - Register  @qlyan(done)
  - Logout @Ning
  - User center @Ning
 
