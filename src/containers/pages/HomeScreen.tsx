@@ -7,6 +7,7 @@ import { NavigationActions } from 'react-navigation'
 import * as D from '../../definitions';
 import { getHomeProducts } from '../../modules/home/actions';
 import { Product } from '../../components';
+import COLOR from '../../constant/color';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
@@ -62,7 +63,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    color: '#000'
+    color: COLOR.BLACK
   }
 })
 

@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import { homePages } from './pages';
+import COLOR from '../constant/color';
 
 const Route = TabNavigator({
   home: {
@@ -52,10 +53,10 @@ const Route = TabNavigator({
   animationEnabled: false,
   swipeEnabled: false,
   tabBarOptions: {
-    activeTintColor: '#000',
-    activeBackgroundColor: '#FFF',
-    inactiveTintColor: '#000',
-    inactiveBackgroundColor: '#FBE251',
+    activeTintColor: COLOR.BLACK,
+    activeBackgroundColor: COLOR.WHITE,
+    inactiveTintColor: COLOR.BLACK,
+    inactiveBackgroundColor: COLOR.YELLOW,
     showLabel: false,
   }
 })

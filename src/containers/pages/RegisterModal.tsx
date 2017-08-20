@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 
 import * as D from '../../definitions';
 import { userRegister } from '../../modules/user/actions';
+import COLOR from '../../constant/color';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
@@ -97,7 +98,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, IStateProps> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -119,11 +120,11 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     marginBottom: '10%',
-    borderBottomColor: '#979797',
+    borderBottomColor: COLOR.GREY,
     borderBottomWidth: 1,
   },
   error: {
-    color: '#F11',
+    color: COLOR.ERROR,
     fontSize: 12,
   },
   button: {

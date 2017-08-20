@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, TextStyle } from 'react-native';
 import * as React from "react";
+import COLOR from '../../constant/color';
 
 interface PriceProps {
   price: string;
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   price: {
     height: 30,
     textAlign: 'left',
-    color: '#e1a536',
+    color: COLOR.PREICE,
     paddingLeft: 5,
   } as TextStyle
 })

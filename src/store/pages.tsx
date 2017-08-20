@@ -5,6 +5,7 @@ import ProductDetailModal from '../containers/pages/ProductDetailModal'
 import RegisterModal from '../containers/pages/RegisterModal'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
+import COLOR from '../constant/color';
 
 const ModalStackOptions = ({ navigation }) => {
   let { goBack } = navigation;
@@ -15,7 +16,7 @@ const ModalStackOptions = ({ navigation }) => {
       <Ionicons
         name={'ios-close'}
         size={34}
-        style={{ color: '#000', marginLeft: 10 }}
+        style={{ color: COLOR.BLACK, marginLeft: 10 }}
       />
     </TouchableOpacity>
   );

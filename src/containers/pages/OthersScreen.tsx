@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
+import COLOR from '../../constant/color';
 
 class OthersScreen extends React.Component<any, any> {
   render() {
@@ -29,7 +30,7 @@ class OthersScreen extends React.Component<any, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
