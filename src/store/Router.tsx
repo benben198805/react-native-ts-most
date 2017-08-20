@@ -5,16 +5,14 @@ import {
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
-import pages from './pages';
+import { homePages } from './pages';
 
 const Route = TabNavigator({
   home: {
-    screen: pages,
+    screen: homePages,
     navigationOptions: {
-      tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
           name={focused ? 'ios-home' : 'ios-home-outline'}
@@ -27,7 +25,6 @@ const Route = TabNavigator({
   others: {
     screen: OthersScreen,
     navigationOptions: {
-      tabBarLabel: 'Others',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
           name={focused ? 'ios-settings' : 'ios-settings-outline'}
@@ -40,7 +37,6 @@ const Route = TabNavigator({
   profile: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
           name={focused ? 'ios-apps' : 'ios-apps-outline'}
@@ -55,6 +51,13 @@ const Route = TabNavigator({
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
+  tabBarOptions: {
+    activeTintColor: '#000',
+    activeBackgroundColor: '#FFF',
+    inactiveTintColor: '#000',
+    inactiveBackgroundColor: '#FBE251',
+    showLabel: false,
+  }
 })
 
 const initialRouterAction = NavigationActions.init()
