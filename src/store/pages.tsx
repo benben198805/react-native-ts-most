@@ -18,7 +18,8 @@ const ModalStackOptions = ({ navigation }) => {
       />
     </TouchableOpacity>
   );
-  return { headerLeft }
+  const tabBarVisible = false
+  return { headerLeft, tabBarVisible }
 };
 
 const homePages = StackNavigator({
