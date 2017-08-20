@@ -25,6 +25,9 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
 
   handlePressCell = (item: D.Product) => () => {
     const { objectId } = item;
+    // this.props.navigate({
+    //   routeName: 'Register',
+    // })
     this.props.navigate({
       routeName: 'Detail',
       params: { objectId },
