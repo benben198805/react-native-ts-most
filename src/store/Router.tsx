@@ -8,11 +8,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
-import pages from './pages';
+import { homePages } from './pages';
 
 const Route = TabNavigator({
   home: {
-    screen: pages,
+    screen: homePages,
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor, focused }) => (
