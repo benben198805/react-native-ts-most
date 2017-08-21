@@ -6,12 +6,12 @@ This project was bootstrapped with [Create React Native App](https://github.com/
  - Product detail @qlyan(done)
 
  - Login @Ning
- - Register  @qlyan(done)
+ - Register @qlyan(done)
  - Logout @Ning
  - User center @Ning
 
- - My products (on sale)
- - My bought products
+ - My products (on sale) @qlyan(done)
+ - My bought products @qlyan(done)
  - Upload product
  
  
