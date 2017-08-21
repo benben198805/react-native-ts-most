@@ -23,6 +23,7 @@ export interface Owner {
 export interface Product {
     description: string;
     name: string;
+    buyer?: Owner;
     price: string;
     owner: Owner;
     img: string;
@@ -30,7 +31,6 @@ export interface Product {
     createdAt: string;
     updatedAt: string;
 }
-
 
 export interface BuyProductResponse {
     buyer: Owner;

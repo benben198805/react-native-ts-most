@@ -7,6 +7,7 @@ import { NavigationActions } from 'react-navigation'
 import * as D from '../../definitions';
 import { Product } from '../../components';
 import COLOR from '../../constant/color';
+import PRODUCT_STATUS from '../../constant/product';
 import { getOwnProduct } from '../../modules/product/actions';
 
 interface OwnProductPageProps extends DispatchProp<void> {
@@ -35,6 +36,8 @@ class OwnProductScreen extends React.PureComponent<OwnProductPageProps, any> {
         owner={item.owner.username}
         details={item.description}
         onClick={()=>{}}
+        isShowStatus={true}
+        status={!!item.buyer ? PRODUCT_STATUS.CLOSE: PRODUCT_STATUS.SALING}
       />
     )
   }
