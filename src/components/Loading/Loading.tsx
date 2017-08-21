@@ -41,10 +41,9 @@ const styles = StyleSheet.create({
   loadingContent: {
     alignItems: 'center',
     backgroundColor: COLOR.BLACK,
-    borderRadius: 5,
     height: Dimensions.get('window').height,
     justifyContent: 'center',
-    opacity: 0.85,
+    opacity: 0.50,
     width: Dimensions.get('window').width,
   },
 })
