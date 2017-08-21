@@ -3,10 +3,11 @@ import {
   NavigationActions,
   TabNavigator,
 } from 'react-navigation'
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Image, StyleSheet } from 'react-native';
 
 
+import BoughtProductScreen from '../containers/pages/BoughtProductScreen'
+import OwnProductScreen from '../containers/pages/OwnProductScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import { homePages } from './pages';
@@ -26,7 +27,7 @@ const Route = TabNavigator({
     },
   },
   others: {
-    screen: OthersScreen,
+    screen: BoughtProductScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image
@@ -34,16 +35,11 @@ const Route = TabNavigator({
           resizeMode="center"
           source={require('../../assets/plus.png')}
         />
-        // <Ionicons
-        //   name={focused ? 'ios-settings' : 'ios-settings-outline'}
-        //   size={26}
-        //   style={{ color: tintColor }}
-        // />
       ),
     },
   },
   profile: {
-    screen: ProfileScreen,
+    screen: OwnProductScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image

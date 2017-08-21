@@ -20,7 +20,29 @@ const buyProduct = (objectId: string): Promise<D.BuyProductResponse> => {
   });
 };
 
+const boughtProductList = (user: D.User): Promise<D.BuyProductResponse> => {
+  return fetchJson(`http://secondhand.leanapp.cn/products/bought/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+    },
+  });
+};
+
+const ownProductList = (user: D.User): Promise<D.BuyProductResponse> => {
+  return fetchJson(`http://secondhand.leanapp.cn/products/owned/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+    },
+  });
+};
+
 export {
   homeProducts,
   buyProduct,
+  boughtProductList,
+  ownProductList,
 }
