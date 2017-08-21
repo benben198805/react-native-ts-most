@@ -5,32 +5,33 @@ import { NavigationActions } from 'react-navigation'
 
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
 import { Product } from '../../components';
 import COLOR from '../../constant/color';
+import PRODUCT_STATUS from '../../constant/product';
+import { getOwnProduct } from '../../modules/product/actions';
 
-interface HomePageProps extends DispatchProp<void> {
-  products: D.Product[];
-  getHomeProducts: typeof getHomeProducts;
+interface OwnProductPageProps extends DispatchProp<void> {
+  ownProducts: D.Product[];
+  user: D.User;
+  getOwnProduct: typeof getOwnProduct;
   navigate: typeof NavigationActions.navigate;
 }
 
-class HomeScreen extends React.PureComponent<HomePageProps, any> {
+class OwnProductScreen extends React.PureComponent<OwnProductPageProps, any> {
   static navigationOptions = {
-    title: '精选',
+    title: '已买宝贝',
   }
   componentDidMount() {
-    this.props.getHomeProducts();
+    this.props.getOwnProduct(this.props.user);
   }
 
   handlePressCell = (item: D.Product) => () => {
     const { objectId } = item;
     this.props.navigate({
       routeName: 'Detail',
-      params: {
+      params: { 
         objectId,
-        bePurchased: true,
-      },
+       },
     })
   }
 
@@ -45,6 +46,8 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
         owner={item.owner.username}
         details={item.description}
         onClick={this.handlePressCell(item)}
+        isShowStatus={true}
+        status={!!item.buyer ? PRODUCT_STATUS.CLOSE: PRODUCT_STATUS.SALING}
       />
     )
   }
@@ -54,7 +57,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
       <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={this.props.products}
+          data={this.props.ownProducts}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
         />
@@ -84,15 +87,16 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state: D.RootState) {
   return {
-    products: state.home.products,
+    user: state.user,
+    ownProducts: state.product.ownProducts,
   };
 }
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    getHomeProducts: () => dispatch(getHomeProducts()),
+    getOwnProduct: (params) => dispatch(getOwnProduct(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(OwnProductScreen)

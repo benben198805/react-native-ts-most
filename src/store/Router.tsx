@@ -3,7 +3,8 @@ import {
   NavigationActions,
   TabNavigator,
 } from 'react-navigation'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Image, StyleSheet } from 'react-native';
+
 
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
@@ -15,10 +16,10 @@ const Route = TabNavigator({
     screen: homePages,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
+        <Image
+          style={styles.tabImage}
+          resizeMode="center"
+          source={require('../../assets/home.png')}
         />
       ),
     },
@@ -27,10 +28,10 @@ const Route = TabNavigator({
     screen: OthersScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-settings' : 'ios-settings-outline'}
-          size={26}
-          style={{ color: tintColor }}
+        <Image
+          style={[styles.tabImage, styles.create]}
+          resizeMode="center"
+          source={require('../../assets/plus.png')}
         />
       ),
     },
@@ -39,25 +40,40 @@ const Route = TabNavigator({
     screen: ProfileScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-apps' : 'ios-apps-outline'}
-          size={26}
-          style={{ color: tintColor }}
+        <Image
+          style={styles.tabImage}
+          resizeMode="center"
+          source={require('../../assets/person.png')}
         />
       ),
     },
   },
 }, {
-  initialRouteName: 'home',
-  tabBarPosition: 'bottom',
-  animationEnabled: false,
-  swipeEnabled: false,
-  tabBarOptions: {
-    activeTintColor: COLOR.BLACK,
-    activeBackgroundColor: COLOR.WHITE,
-    inactiveTintColor: COLOR.BLACK,
-    inactiveBackgroundColor: COLOR.YELLOW,
-    showLabel: false,
+    initialRouteName: 'home',
+    tabBarPosition: 'bottom',
+    animationEnabled: false,
+    swipeEnabled: false,
+    tabBarOptions: {
+      activeTintColor: COLOR.BLACK,
+      activeBackgroundColor: COLOR.WHITE,
+      inactiveTintColor: COLOR.BLACK,
+      inactiveBackgroundColor: COLOR.YELLOW,
+      showLabel: false,
+    }
+  })
+
+
+const styles = StyleSheet.create({
+  tabImage: {
+    height: 34,
+    width: 34,
+    resizeMode: 'contain',
+    position: 'relative',
+    top: 2.5,
+  },
+  create: {
+    backgroundColor: COLOR.WHITE,
+    borderRadius: 17,
   }
 })
 
@@ -69,7 +85,7 @@ export const reducer = (state = initialState, action) => {
   let nextState
   // Simply return the original `state` if `nextState` is null or undefined.
   switch (action.type) {
-    
+
     default:
       nextState = Route.router.getStateForAction(action, state)
   }

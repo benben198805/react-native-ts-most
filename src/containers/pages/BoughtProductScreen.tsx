@@ -5,32 +5,32 @@ import { NavigationActions } from 'react-navigation'
 
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
 import { Product } from '../../components';
 import COLOR from '../../constant/color';
+import { getBoughtProduct } from '../../modules/product/actions';
 
-interface HomePageProps extends DispatchProp<void> {
-  products: D.Product[];
-  getHomeProducts: typeof getHomeProducts;
+interface BoughtProductPageProps extends DispatchProp<void> {
+  boughtProducts: D.Product[];
+  user: D.User;
+  getBoughtProduct: typeof getBoughtProduct;
   navigate: typeof NavigationActions.navigate;
 }
 
-class HomeScreen extends React.PureComponent<HomePageProps, any> {
+class BoughtProductScreen extends React.PureComponent<BoughtProductPageProps, any> {
   static navigationOptions = {
-    title: '精选',
+    title: '已买宝贝',
   }
   componentDidMount() {
-    this.props.getHomeProducts();
+    this.props.getBoughtProduct(this.props.user);
   }
 
   handlePressCell = (item: D.Product) => () => {
     const { objectId } = item;
     this.props.navigate({
       routeName: 'Detail',
-      params: {
+      params: { 
         objectId,
-        bePurchased: true,
-      },
+       },
     })
   }
 
@@ -54,7 +54,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
       <View style={styles.container}>
         <FlatList
           style={styles.list}
-          data={this.props.products}
+          data={this.props.boughtProducts}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
         />
@@ -84,15 +84,16 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state: D.RootState) {
   return {
-    products: state.home.products,
+    user: state.user,
+    boughtProducts: state.product.boughtProducts,
   };
 }
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    getHomeProducts: () => dispatch(getHomeProducts()),
+    getBoughtProduct: (params) => dispatch(getBoughtProduct(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(BoughtProductScreen)

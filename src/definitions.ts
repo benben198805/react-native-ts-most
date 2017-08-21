@@ -23,6 +23,7 @@ export interface Owner {
 export interface Product {
     description: string;
     name: string;
+    buyer?: Owner;
     price: string;
     owner: Owner;
     img: string;
@@ -30,7 +31,6 @@ export interface Product {
     createdAt: string;
     updatedAt: string;
 }
-
 
 export interface BuyProductResponse {
     buyer: Owner;
@@ -76,6 +76,12 @@ export interface UserRegisterAction extends GeneralAction {
 export interface UserAction extends GeneralAction {
     payload?: User | UserForLogin | UserProfile | UserForRegister
 }
+export interface GetBoughtProductAction extends GeneralAction {
+    payload?: User
+}
+export interface GetOwnProductAction extends GeneralAction {
+    payload?: User
+}
 export interface FetchHomeProductsAction extends GeneralAction {
     payload?: Product[];
 }
@@ -86,6 +92,10 @@ export interface BuyProductAction extends GeneralAction {
 // STATES
 export type AppState = App;
 export type UserState = User;
+export type ProductState = {
+    boughtProducts: Product[],
+    ownProducts: Product[],
+};
 export type HomeProductsState = HomeProducts;
 
 
@@ -94,4 +104,5 @@ export interface RootState {
     app?: AppState,
     home?: HomeProductsState;
     nav?: any,
+    product?: ProductState;
 }
