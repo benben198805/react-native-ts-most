@@ -1,33 +1,51 @@
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { connect, DispatchProp } from 'react-redux';
-import { find } from 'lodash'
+import { find, get } from 'lodash'
 
 import * as D from '../../definitions';
-import { getHomeProducts } from '../../modules/home/actions';
+import { buyHomeProduct } from '../../modules/home/actions';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
+import COLOR from '../../constant/color';
 
 interface ProductDetailProps extends DispatchProp<void> {
-  product: D.Product | null;
-  getHomeProducts: typeof getHomeProducts;
+  products: D.Product[];
+  buyHomeProduct: typeof buyHomeProduct;
 }
 
-class ProductDetailModal extends React.PureComponent<ProductDetailProps, any> {
+interface IOwnState {
+  product: D.Product | null
+}
+
+class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnState> {
   static navigationOptions = {
     title: '商品详情',
   }
 
-  handlePressCell = () => {
-    console.log(123123)
+  constructor(props) {
+    super(props);
+
+    const { params } = props.navigation.state;
+    const objectId = get(params, 'objectId')
+    if (objectId) {
+      this.state = {
+        product: find(props.products, { 'objectId': objectId })
+      }
+    }
+  }
+
+  handlePressCell = (objectId: string) => () => {
+    this.props.buyHomeProduct({ objectId })
   }
 
   render() {
+    const { objectId } = this.state.product
     return (
       <View style={styles.container}>
-        <ProductDetail
-          product={this.props.product}
-          onClick={this.handlePressCell}
-        />
+        {this.state.product && (<ProductDetail
+          product={this.state.product}
+          onClick={this.handlePressCell(objectId)}
+        />)}
       </View>
     )
   }
@@ -36,19 +54,19 @@ class ProductDetailModal extends React.PureComponent<ProductDetailProps, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
   },
 })
 
 function mapStateToProps(state: D.RootState) {
   return {
-    product: find(state.home.products, 'objectId', state.home.current.objectId),
+    products: state.home.products,
   };
 }
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    getHomeProducts: () => dispatch(getHomeProducts()),
+    buyHomeProduct: ({ objectId }) => dispatch(buyHomeProduct({ objectId })),
   };
 }
 

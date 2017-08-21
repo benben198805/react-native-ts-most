@@ -7,6 +7,7 @@ import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
 import { userLogin } from '../../modules/user/actions'
+import COLOR from '../../constant/color';
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
@@ -49,7 +50,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },

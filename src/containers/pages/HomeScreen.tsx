@@ -1,18 +1,17 @@
 import * as React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import { connect, DispatchProp } from 'react-redux';
-import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 
 import * as D from '../../definitions';
-import { getHomeProducts, setCurrentProduct } from '../../modules/home/actions';
+import { getHomeProducts } from '../../modules/home/actions';
 import { Product } from '../../components';
+import COLOR from '../../constant/color';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
   getHomeProducts: typeof getHomeProducts;
-  setCurrentProduct: typeof setCurrentProduct;
   navigate: typeof NavigationActions.navigate;
 }
 
@@ -26,17 +25,18 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
 
   handlePressCell = (item: D.Product) => () => {
     const { objectId } = item;
-    this.props.setCurrentProduct({ objectId })
     // this.props.navigate({
-    //   routeName: 'Detail',
-    //   action: NavigationActions.navigate({ routeName: 'Detail' }),
+    //   routeName: 'Register',
     // })
+    this.props.navigate({
+      routeName: 'Detail',
+      params: { objectId },
+    })
   }
 
   keyExtractor = (item: D.Product) => item.objectId
 
   renderItem = ({ item, index }: { item: D.Product, index: number }) => {
-    console.log(item)
     return (
       <Product
         img={item.img}
@@ -58,12 +58,6 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
         />
-        <Button
-          title="Go to Others"
-          onPress={() => {
-            {/* this.props.navigate({ routeName: 'others' }) */}
-          }}
-        />
       </View>
     )
   }
@@ -72,7 +66,7 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLOR.WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -84,12 +78,11 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    color: '#000'
+    color: COLOR.BLACK
   }
 })
 
 function mapStateToProps(state: D.RootState) {
-  console.log(state)
   return {
     products: state.home.products,
   };
@@ -98,8 +91,7 @@ function mapStateToProps(state: D.RootState) {
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
     getHomeProducts: () => dispatch(getHomeProducts()),
-    setCurrentProduct: (currentProduct: D.CurrentProduct) => dispatch(setCurrentProduct(currentProduct)),
-    navigate: NavigationActions.navigate,
+    navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }
 
