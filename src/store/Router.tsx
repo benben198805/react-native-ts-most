@@ -6,8 +6,6 @@ import {
 import { Image, StyleSheet } from 'react-native';
 
 
-import BoughtProductScreen from '../containers/pages/BoughtProductScreen'
-import OwnProductScreen from '../containers/pages/OwnProductScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import { homePages } from './pages';
@@ -27,7 +25,7 @@ const Route = TabNavigator({
     },
   },
   others: {
-    screen: BoughtProductScreen,
+    screen: OthersScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image
@@ -39,7 +37,7 @@ const Route = TabNavigator({
     },
   },
   profile: {
-    screen: OwnProductScreen,
+    screen: ProfileScreen,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image

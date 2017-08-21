@@ -24,6 +24,16 @@ class BoughtProductScreen extends React.PureComponent<BoughtProductPageProps, an
     this.props.getBoughtProduct(this.props.user);
   }
 
+  handlePressCell = (item: D.Product) => () => {
+    const { objectId } = item;
+    this.props.navigate({
+      routeName: 'Detail',
+      params: { 
+        objectId,
+       },
+    })
+  }
+
   keyExtractor = (item: D.Product) => item.objectId
 
   renderItem = ({ item, index }: { item: D.Product, index: number }) => {
@@ -34,7 +44,7 @@ class BoughtProductScreen extends React.PureComponent<BoughtProductPageProps, an
         price={item.price}
         owner={item.owner.username}
         details={item.description}
-        onClick={()=>{}}
+        onClick={this.handlePressCell(item)}
       />
     )
   }

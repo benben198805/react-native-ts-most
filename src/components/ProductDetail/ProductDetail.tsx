@@ -8,6 +8,7 @@ import * as D from '../../definitions';
 
 export interface ProductDetailProps {
   product: D.Product;
+  bePurchased: boolean;
   onClick: () => void;
 }
 
@@ -36,7 +37,9 @@ class ProductDetail extends React.PureComponent<ProductDetailProps, any> {
           <Text>
             {this.props.product.description}
           </Text>
-          <Button text="立即购买" onPress={this.props.onClick} />
+          {this.props.bePurchased &&
+            (<Button text="立即购买" onPress={this.props.onClick} />)
+          }
         </View>
       </View>
     )

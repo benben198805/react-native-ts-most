@@ -14,7 +14,8 @@ interface ProductDetailProps extends DispatchProp<void> {
 }
 
 interface IOwnState {
-  product: D.Product | null
+  product: D.Product | null;
+  bePurchased: boolean;
 }
 
 class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnState> {
@@ -24,12 +25,12 @@ class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnSta
 
   constructor(props) {
     super(props);
-
     const { params } = props.navigation.state;
     const objectId = get(params, 'objectId')
     if (objectId) {
       this.state = {
-        product: find(props.products, { 'objectId': objectId })
+        product: find(props.products, { 'objectId': objectId }),
+        bePurchased: get(params, 'bePurchased', false)
       }
     }
   }
@@ -44,6 +45,7 @@ class ProductDetailModal extends React.PureComponent<ProductDetailProps, IOwnSta
       <View style={styles.container}>
         {this.state.product && (<ProductDetail
           product={this.state.product}
+          bePurchased={this.state.bePurchased}
           onClick={this.handlePressCell(objectId)}
         />)}
       </View>
