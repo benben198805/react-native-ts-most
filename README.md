@@ -12,6 +12,6 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
  - My products (on sale) @qlyan(done)
  - My bought products @qlyan(done)
- - Upload product
+ - Upload product @qlyan(done)
  
  
