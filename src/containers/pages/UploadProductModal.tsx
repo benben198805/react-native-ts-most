@@ -7,11 +7,13 @@ import { ImagePicker } from 'expo';
 import * as D from '../../definitions';
 import COLOR from '../../constant/color';
 import { Input, Button, Textarea } from "../../components/index";
-import { uploadProduct } from "../../modules/product/actions";
+import { uploadProduct, uploadProductImage } from '../../modules/product/actions';
 
 interface UploadProductProps extends DispatchProp<void> {
   uploadProduct: typeof uploadProduct;
+  uploadProductImage: typeof uploadProductImage;
   navigate: typeof NavigationActions.navigate;
+  currentImage: string;
 }
 
 interface IStateProps {
@@ -43,12 +45,16 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
     });
 
     if (!result.cancelled) {
+      this.props.uploadProductImage({ img: result.uri });
       this.setState({ img: result.uri });
     }
   };
 
   handleUploadProduct = () => {
-    this.props.uploadProduct(this.state)
+    this.props.uploadProduct({
+      ...this.state,
+      img: this.props.currentImage
+    })
   }
 
   render() {
@@ -67,7 +73,7 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
               />) :
               (<Image
                 style={styles.uploadImage}
-                source={{uri: this.state.img}}
+                source={{ uri: this.state.img }}
                 resizeMode="contain"
               />)
           }
@@ -142,12 +148,14 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state: D.RootState) {
   return {
+    currentImage: state.product.currentImage
   };
 }
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
     uploadProduct: (params) => dispatch(uploadProduct(params)),
+    uploadProductImage: (params) => dispatch(uploadProductImage(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }

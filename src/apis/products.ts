@@ -42,7 +42,7 @@ const ownProductList = (user: D.User): Promise<D.BuyProductResponse> => {
 
 const uploadProductDetail = (product: D.UploadProduct): Promise<D.Product> => {
   return fetchJson(`http://secondhand.leanapp.cn/products/create/`, {
-    method: 'POST',    
+    method: 'POST',
     body: JSON.stringify(product),
     headers: {
       'Content-Type': 'application/json',
@@ -51,10 +51,34 @@ const uploadProductDetail = (product: D.UploadProduct): Promise<D.Product> => {
   });
 };
 
+const uploadImage = (image: D.UploadProductImage): Promise<any> => {
+  const uri = image.img;
+  let uriParts = uri.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+  let formData = new FormData();
+  formData.append('img', {
+    uri,
+    name: `photo.${fileType}`,
+    type: `image/${fileType}`,
+  });
+
+  return fetchJson(`http://secondhand.leanapp.cn/products/upload`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'multipart/form-data',
+      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+    },
+  });
+
+};
+
 export {
   homeProducts,
   buyProduct,
   boughtProductList,
   ownProductList,
   uploadProductDetail,
+  uploadImage,
 }

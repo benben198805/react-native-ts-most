@@ -64,6 +64,10 @@ export interface UploadProduct {
 	description: string;
 }
 
+export interface UploadProductImage {
+	img: string;
+}
+
 export interface UserForRegister extends UserForLogin {
 
 }
@@ -93,6 +97,9 @@ export interface GetOwnProductAction extends GeneralAction {
 export interface UploadProductAction extends GeneralAction {
     payload?: UploadProduct
 }
+export interface UploadProductImageAction extends GeneralAction {
+    payload?: UploadProductImage
+}
 export interface FetchHomeProductsAction extends GeneralAction {
     payload?: Product[];
 }
@@ -106,6 +113,7 @@ export type UserState = User;
 export type ProductState = {
     boughtProducts: Product[],
     ownProducts: Product[],
+    currentImage: string,
 };
 export type HomeProductsState = HomeProducts;
 
