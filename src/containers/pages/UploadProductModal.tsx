@@ -5,12 +5,12 @@ import { NavigationActions } from 'react-navigation'
 import { ImagePicker } from 'expo';
 
 import * as D from '../../definitions';
-import { userRegister } from '../../modules/user/actions';
 import COLOR from '../../constant/color';
 import { Input, Button, Textarea } from "../../components/index";
+import { uploadProduct } from "../../modules/product/actions";
 
 interface UploadProductProps extends DispatchProp<void> {
-  userRegister: typeof userRegister;
+  uploadProduct: typeof uploadProduct;
   navigate: typeof NavigationActions.navigate;
 }
 
@@ -18,7 +18,7 @@ interface IStateProps {
   name: string,
   price: string,
   description: string,
-  image: string,
+  img: string,
 }
 
 class UploadProductModal extends React.PureComponent<UploadProductProps, IStateProps> {
@@ -32,7 +32,7 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
       name: '',
       price: '',
       description: '',
-      image: '',
+      img: '',
     }
   }
 
@@ -43,12 +43,12 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
     });
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.setState({ img: result.uri });
     }
   };
 
   handleUploadProduct = () => {
-
+    this.props.uploadProduct(this.state)
   }
 
   render() {
@@ -59,7 +59,7 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
       >
         <TouchableHighlight style={styles.avator} onPress={this.handleOpenPicker}>
           {
-            !this.state.image
+            !this.state.img
               ? (<Image
                 style={styles.image}
                 source={require('../../../assets/arrow_up_upload.png')}
@@ -67,7 +67,7 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
               />) :
               (<Image
                 style={styles.uploadImage}
-                source={{uri: this.state.image}}
+                source={{uri: this.state.img}}
                 resizeMode="contain"
               />)
           }
@@ -147,7 +147,7 @@ function mapStateToProps(state: D.RootState) {
 
 function mapDispatchToProps(dispatch: (actions: {}) => void) {
   return {
-    userRegister: (params) => dispatch(userRegister(params)),
+    uploadProduct: (params) => dispatch(uploadProduct(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
   };
 }

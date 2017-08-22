@@ -40,9 +40,21 @@ const ownProductList = (user: D.User): Promise<D.BuyProductResponse> => {
   });
 };
 
+const uploadProductDetail = (product: D.UploadProduct): Promise<D.Product> => {
+  return fetchJson(`http://secondhand.leanapp.cn/products/create/`, {
+    method: 'POST',    
+    body: JSON.stringify(product),
+    headers: {
+      'Content-Type': 'application/json',
+      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+    },
+  });
+};
+
 export {
   homeProducts,
   buyProduct,
   boughtProductList,
   ownProductList,
+  uploadProductDetail,
 }
