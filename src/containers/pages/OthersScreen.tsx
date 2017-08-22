@@ -22,6 +22,12 @@ class OthersScreen extends React.Component<any, any> {
             this.props.dispatch(NavigationActions.back())
           }}
         />
+        <Button
+            title="go login"
+            onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+            }}
+        />
       </View>
     )
   }
