@@ -4,6 +4,7 @@ import * as Redux from 'redux';
 const initialState: D.ProductState = {
     boughtProducts: [],
     ownProducts: [],
+    currentImage: '',
 };
 
 const productReducer: Redux.Reducer<D.ProductState> = (state: D.ProductState, action: D.GeneralAction): D.ProductState => {
@@ -20,6 +21,13 @@ const productReducer: Redux.Reducer<D.ProductState> = (state: D.ProductState, ac
             return {
                 ...state,
                 ownProducts,
+            };
+        case 'UPLOAD_PRODUCT_IMAGE_SUC':
+            const currentImage = (action.payload as D.UploadProductImage).img
+            console.log()
+            return {
+                ...state,
+                currentImage,
             };
         default:
     }
