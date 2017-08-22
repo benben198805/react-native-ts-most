@@ -5,9 +5,8 @@ import {
 } from 'react-navigation'
 import { Image, StyleSheet } from 'react-native';
 
-
-import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
+import UploadProductModal from '../containers/pages/UploadProductModal'
 import { homePages } from './pages';
 import COLOR from '../constant/color';
 import {requireAuthentication} from "../containers/utils/AuthenticatedComponent";
@@ -25,8 +24,8 @@ const Route = TabNavigator({
       ),
     },
   },
-  others: {
-    screen: OthersScreen,
+  create: {
+    screen: UploadProductModal,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image
