@@ -10,6 +10,7 @@ import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import { homePages } from './pages';
 import COLOR from '../constant/color';
+import {requireAuthentication} from "../containers/utils/AuthenticatedComponent";
 
 const Route = TabNavigator({
   home: {
@@ -37,7 +38,7 @@ const Route = TabNavigator({
     },
   },
   profile: {
-    screen: ProfileScreen,
+    screen: requireAuthentication(ProfileScreen),
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image

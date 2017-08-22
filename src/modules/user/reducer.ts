@@ -2,7 +2,8 @@ import * as D from '../../definitions';
 import * as Redux from 'redux';
 
 const initialState: D.UserState = {
-    name: '',
+  username: '',
+  sessionToken:''
 };
 
 const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.UserAction): D.UserState => {

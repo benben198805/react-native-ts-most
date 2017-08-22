@@ -6,7 +6,6 @@ import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
 
 import * as D from '../../definitions'
-import { userLogin } from '../../modules/user/actions'
 import COLOR from '../../constant/color';
 
 export type ProfileProps<S> = DispatchProp<S> & {
@@ -19,7 +18,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
       <View style={styles.container}>
           <View style={styles.avatar}>
               <Image style={styles.avatarImage} source={require('../../../assets/16pic_3491556_b.png')} />
-              <Text style={styles.avatarName}>{this.props.user.name ? `${this.props.user.name}` : '未登录'} !</Text>
+              <Text style={styles.avatarName}>{this.props.user.username ? `${this.props.user.username}` : '未登录'} !</Text>
           </View>
           <Button
               buttonStyle={styles.button}
