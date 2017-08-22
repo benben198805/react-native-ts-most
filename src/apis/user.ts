@@ -14,7 +14,18 @@ const register = (user: D.UserForRegister): Promise<D.User> =>
     body: JSON.stringify(user),
   })
 
+
+const logout = (sessionToken): Promise<D.User> =>
+    fetchJson('http://secondhand.leanapp.cn/users/logout', {
+      method: 'GET',
+      headers:{
+        sessionToken
+      }
+    })
+
+
 export {
   login,
-  register
+  register,
+  logout
 }

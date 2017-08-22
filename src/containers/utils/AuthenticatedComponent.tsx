@@ -14,16 +14,18 @@ export function requireAuthentication(Component:ComponentType):ComponentType {
     componentWillMount() {
       this.checkAuth();
     }
-    componentWillReceiveProps(nextProps) {
+    componentWillUpdate() {
+      // TODO There is a bug, not sure can be execute for each render
       this.checkAuth();
     }
     checkAuth() {
-      if (this.props.user.username) {
+      if (this.props.user.username == '') {
         this.props.dispatch(NavigationActions.navigate({ routeName: 'login' }))
       }
     }
     render() {
-      if(this.props.user.username !== ''){
+
+      if(this.props.user.username != ''){
         return <Component {...this.props}/>;
       }else{
         return (<View></View>);

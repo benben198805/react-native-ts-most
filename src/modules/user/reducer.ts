@@ -14,6 +14,18 @@ const userReducer: Redux.Reducer<D.UserState> = (state: D.UserState, action: D.U
                 ...state,
                 ...action.payload,
             };
+        case 'USER_LOGOUT_SUC':
+            return {
+              ...state,
+              username: '',
+              sessionToken:''
+            };
+          case 'USER_LOGOUT_FAIL':
+            return {
+              ...state,
+              username: '',
+              sessionToken:''
+            };
         default:
     }
     return state;

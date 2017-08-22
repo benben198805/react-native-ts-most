@@ -4,6 +4,7 @@ import {Image, StyleSheet, Text, View} from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation'
+import { userLogout } from '../../modules/user/actions';
 
 import * as D from '../../definitions'
 import COLOR from '../../constant/color';
@@ -38,7 +39,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
             buttonStyle={styles.button}
           title="退出登录"
           onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'logout' }))
+            this.props.dispatch(userLogout(this.props.user.sessionToken));
           }}
         />
       </View>
