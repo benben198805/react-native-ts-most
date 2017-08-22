@@ -11,6 +11,7 @@ const appReducer: Redux.Reducer<D.AppState> = (state: D.AppState, action: Redux.
     state = state || initialState;
     const isLoading = endsWith(action.type, '_SUC') ||
         endsWith(action.type, '_FAIL') ||
+        endsWith(action.type, 'REDUX_STORAGE_SAVE') ||
         startsWith(action.type, 'Navigation')
     if (isLoading) {
         return {

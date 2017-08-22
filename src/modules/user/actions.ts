@@ -17,7 +17,9 @@ export const userLogin = (user: D.UserForLogin): D.UserLoginAction => ({ type: U
 export const userRegister = (user: D.UserForRegister): D.UserRegisterAction => ({ type: USER_REGISTER, payload: user });
 
 const loginEpic: Epic<D.UserAction> = (action$,store) => action$.thru(select(USER_LOGIN))
-    .chain((action: D.UserLoginAction) => fromPromise(login(action.payload)))
+    .chain((action: D.UserLoginAction) => fromPromise(login(action.payload).catch(()=>{
+      return null
+    })))
     // .chain((action: D.UserLoginAction) => fromPromise(Promise.resolve({
     //     name: ['Sam', 'Tom', 'John'][Math.floor(Math.random() * 2.9)]
     // })))
