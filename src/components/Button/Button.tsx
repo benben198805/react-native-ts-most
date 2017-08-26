@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableHighlight, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as React from "react";
 import COLOR from '../../constant/color';
 
@@ -20,12 +20,12 @@ class Button extends React.PureComponent<ButtonProps, any> {
     }
 
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.button}
         onPress={props.onPress}
       >
-        <Text>{props.text}</Text>
-      </TouchableHighlight>
+        <Text style={styles.text}>{props.text}</Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -33,12 +33,14 @@ class Button extends React.PureComponent<ButtonProps, any> {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: COLOR.YELLOW,
-    color: COLOR.BLACK,
     borderRadius: 10,
-    height: 40,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    height: 40,
+  },
+  text: {
+    color: COLOR.BLACK,
   }
 })
 
