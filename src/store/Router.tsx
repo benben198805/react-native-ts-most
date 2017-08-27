@@ -4,14 +4,17 @@ import {
   TabNavigator,
 } from 'react-navigation'
 import { Image, StyleSheet } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import UploadProductModal from '../containers/pages/UploadProductModal'
-import { homePages } from './pages';
+import { homePages, ModalStackOptions } from './pages';
 import COLOR from '../constant/color';
-import {requireAuthentication} from "../containers/utils/AuthenticatedComponent";
+import { requireAuthentication } from "../containers/utils/AuthenticatedComponent";
+import RegisterModal from '../containers/pages/RegisterModal'
+import LoginModal from "../containers/pages/LoginModal";
 
-const Route = TabNavigator({
+const tabRouters = TabNavigator({
   home: {
     screen: homePages,
     navigationOptions: {
@@ -60,6 +63,30 @@ const Route = TabNavigator({
       inactiveBackgroundColor: COLOR.YELLOW,
       showLabel: false,
     }
+  })
+
+const authModals = StackNavigator({
+  Login: {
+    screen: LoginModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  Register: {
+    screen: RegisterModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  }
+})
+
+
+const Route = StackNavigator({
+  Main: {
+    screen: tabRouters,
+  },
+  Auth: {
+    screen: authModals,
+  },
+}, {
+    initialRouteName: 'Main',
+    headerMode: 'none',
   })
 
 
