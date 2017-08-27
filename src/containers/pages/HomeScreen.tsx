@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
 import { connect, DispatchProp } from 'react-redux';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, NavigationScreenProp, NavigationState, NavigationAction } from 'react-navigation'
 
 
 import * as D from '../../definitions';
@@ -11,8 +11,10 @@ import COLOR from '../../constant/color';
 
 interface HomePageProps extends DispatchProp<void> {
   products: D.Product[];
+  nav: any;
   getHomeProducts: typeof getHomeProducts;
   navigate: typeof NavigationActions.navigate;
+  navigation: NavigationScreenProp<NavigationState, NavigationAction>,
 }
 
 class HomeScreen extends React.PureComponent<HomePageProps, any> {
@@ -21,6 +23,17 @@ class HomeScreen extends React.PureComponent<HomePageProps, any> {
   }
   componentDidMount() {
     this.props.getHomeProducts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props.nav)
+    console.log(nextProps.nav)
+    if(this.props.navigation.state.routeName === 'Home'
+      && ((this.props.nav.index !== 0 && nextProps.nav.index === 0) 
+        || (this.props.nav.index === 0 && nextProps.nav.index === 0 && this.props.nav.routes[0].routes.length !== nextProps.nav.routes[0].routes.length))
+    ){
+      this.props.getHomeProducts();
+    }
   }
 
   handlePressCell = (item: D.Product) => () => {
@@ -85,6 +98,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state: D.RootState) {
   return {
     products: state.home.products,
+    nav: state.nav,
   };
 }
 
