@@ -13,6 +13,8 @@ interface UploadProductProps extends DispatchProp<void> {
   uploadProduct: typeof uploadProduct;
   uploadProductImage: typeof uploadProductImage;
   navigate: typeof NavigationActions.navigate;
+  back: typeof NavigationActions.back;
+  reset: typeof NavigationActions.reset;
   currentImage: string;
 }
 
@@ -38,7 +40,6 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
     }
   }
 
-
   handleOpenPicker = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -54,6 +55,12 @@ class UploadProductModal extends React.PureComponent<UploadProductProps, IStateP
     this.props.uploadProduct({
       ...this.state,
       img: this.props.currentImage
+    })
+    this.props.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Upload'})
+      ]
     })
   }
 
@@ -157,6 +164,8 @@ function mapDispatchToProps(dispatch: (actions: {}) => void) {
     uploadProduct: (params) => dispatch(uploadProduct(params)),
     uploadProductImage: (params) => dispatch(uploadProductImage(params)),
     navigate: (params) => dispatch(NavigationActions.navigate(params)),
+    reset: (params) => dispatch(NavigationActions.reset(params)),
+    back: () => dispatch(NavigationActions.back()),
   };
 }
 
