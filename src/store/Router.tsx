@@ -4,17 +4,11 @@ import {
   TabNavigator,
 } from 'react-navigation'
 import { Image, StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 
-import ProfileScreen from '../containers/pages/ProfileScreen'
-import UploadProductModal from '../containers/pages/UploadProductModal'
-import { homePages, ModalStackOptions } from './pages';
+import { homePages, uploadPages, profilePages } from './pages';
 import COLOR from '../constant/color';
-import { requireAuthentication } from "../containers/utils/AuthenticatedComponent";
-import RegisterModal from '../containers/pages/RegisterModal'
-import LoginModal from "../containers/pages/LoginModal";
 
-const tabRouters = TabNavigator({
+const Route = TabNavigator({
   home: {
     screen: homePages,
     navigationOptions: {
@@ -28,7 +22,7 @@ const tabRouters = TabNavigator({
     },
   },
   create: {
-    screen: UploadProductModal,
+    screen: uploadPages,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image
@@ -40,7 +34,7 @@ const tabRouters = TabNavigator({
     },
   },
   profile: {
-    screen: requireAuthentication(ProfileScreen),
+    screen: profilePages,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Image
@@ -64,31 +58,6 @@ const tabRouters = TabNavigator({
       showLabel: false,
     }
   })
-
-const authModals = StackNavigator({
-  Login: {
-    screen: LoginModal,
-    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
-  },
-  Register: {
-    screen: RegisterModal,
-    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
-  }
-})
-
-
-const Route = StackNavigator({
-  Main: {
-    screen: tabRouters,
-  },
-  Auth: {
-    screen: authModals,
-  },
-}, {
-    initialRouteName: 'Main',
-    headerMode: 'none',
-  })
-
 
 const styles = StyleSheet.create({
   tabImage: {

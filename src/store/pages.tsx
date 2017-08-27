@@ -5,6 +5,12 @@ import ProductDetailModal from '../containers/pages/ProductDetailModal'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 import COLOR from '../constant/color';
+import RegisterModal from '../containers/pages/RegisterModal';
+import LoginModal from "../containers/pages/LoginModal";
+import ProfileScreen from '../containers/pages/ProfileScreen';
+import UploadProductModal from '../containers/pages/UploadProductModal';
+
+import { requireAuthentication } from "../containers/utils/AuthenticatedComponent";
 
 const ModalStackOptions = ({ navigation }) => {
   let { goBack } = navigation;
@@ -34,7 +40,43 @@ const homePages = StackNavigator({
   });
 
 
+const uploadPages = StackNavigator({
+  Upload: { screen: requireAuthentication(UploadProductModal) },
+  Login: {
+    screen: LoginModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  Register: {
+    screen: RegisterModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  }
+}, {
+    mode: 'modal',
+  });
+
+
+const profilePages = StackNavigator({
+  Profile: { screen: requireAuthentication(ProfileScreen) },
+  Detail: {
+    screen: ProductDetailModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  Login: {
+    screen: LoginModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  Register: {
+    screen: RegisterModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  }
+}, {
+    mode: 'modal',
+  });
+
+
 export {
   homePages,
+  uploadPages,
+  profilePages,
   ModalStackOptions
 }
