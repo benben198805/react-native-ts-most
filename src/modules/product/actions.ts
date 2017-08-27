@@ -52,7 +52,12 @@ const uploadProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thr
     .chain((action: D.UploadProductAction) => fromPromise(uploadProductDetail(action.payload, store.getState().user)))
     .map((uploadProductResponse) => {
         if (uploadProductResponse) {
-            store.dispatch(NavigationActions.back());
+            store.dispatch(NavigationActions.navigate({
+                routeName: 'home',
+                params:{
+                    routeName: 'Home'
+                }
+            }));
             return { type: UPLOAD_PRODUCT_SUC, payload: uploadProductResponse }
         }
         return { type: UPLOAD_PRODUCT_FAIL }
