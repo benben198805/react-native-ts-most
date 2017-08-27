@@ -30,7 +30,7 @@ const buyProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(s
     .chain((action: D.BuyProductAction) => fromPromise(buyProduct(action.payload.objectId, store.getState().user.sessionToken)))
     .map((buyProductRespoonse: null | D.BuyProductResponse) => {
         if (buyProductRespoonse) {
-            store.dispatch(NavigationActions.navigate({ routeName: 'Home' }));
+            store.dispatch(NavigationActions.back());
             return { type: BUY_PRODUCT_SUC, payload: buyProductRespoonse }
         } else {
             return { type: BUY_PRODUCT_FAIL }
