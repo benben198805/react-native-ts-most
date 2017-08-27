@@ -25,14 +25,14 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
               buttonStyle={styles.button}
               title="已买宝贝"
               onPress={() => {
-                  this.props.dispatch(NavigationActions.navigate({ routeName: 'boughtProducts' }))
+                  this.props.dispatch(NavigationActions.navigate({ routeName: 'BoughtProduct' }))
               }}
           />
         <Button
             buttonStyle={styles.button}
           title="出售宝贝"
           onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'sell' }))
+            this.props.dispatch(NavigationActions.navigate({ routeName: 'OwnProduct' }))
           }}
         />
         <Button

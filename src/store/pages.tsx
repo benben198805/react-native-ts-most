@@ -9,6 +9,8 @@ import RegisterModal from '../containers/pages/RegisterModal';
 import LoginModal from "../containers/pages/LoginModal";
 import ProfileScreen from '../containers/pages/ProfileScreen';
 import UploadProductModal from '../containers/pages/UploadProductModal';
+import BoughtProductScreen from '../containers/pages/BoughtProductScreen';
+import OwnProductScreen from '../containers/pages/OwnProductScreen';
 
 import { requireAuthentication } from "../containers/utils/AuthenticatedComponent";
 
@@ -67,6 +69,14 @@ const profilePages = StackNavigator({
   },
   Register: {
     screen: RegisterModal,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  BoughtProduct: {
+    screen: BoughtProductScreen,
+    navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
+  },
+  OwnProduct: {
+    screen: OwnProductScreen,
     navigationOptions: ({ navigation }) => ModalStackOptions({ navigation }),
   }
 }, {
