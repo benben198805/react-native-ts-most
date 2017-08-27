@@ -28,10 +28,7 @@ export function requireAuthentication(Component: ComponentType): ComponentType {
         && nextProps.nav.routes[nextRouterIndex].routes.length <= 2
         && this.props.nav.index !== nextProps.nav.index
         && includes(authRouterIndexs, nextRouterIndex)) {
-          console.log(this.props)
-          console.log(nextProps)
-          
-        this.goToLoginPage();
+          this.goToLoginPage();
       };
     }
     isStatePropsSame(nextProps) {
