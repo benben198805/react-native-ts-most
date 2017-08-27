@@ -10,12 +10,12 @@ const homeProducts = (): Promise<D.Product[]> => {
   });
 };
 
-const buyProduct = (objectId: string): Promise<D.BuyProductResponse> => {
+const buyProduct = (objectId: string, sessionToken: string): Promise<D.BuyProductResponse> => {
   return fetchJson(`http://secondhand.leanapp.cn/products/buy/${objectId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+      sessionToken,
     },
   });
 };
@@ -25,7 +25,7 @@ const boughtProductList = (user: D.User): Promise<D.BuyProductResponse> => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+      sessionToken: user.sessionToken,
     },
   });
 };
@@ -35,23 +35,24 @@ const ownProductList = (user: D.User): Promise<D.BuyProductResponse> => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+      'sessionToken': user.sessionToken,
     },
   });
 };
 
-const uploadProductDetail = (product: D.UploadProduct): Promise<D.Product> => {
+const uploadProductDetail = (product: D.UploadProduct, user: D.User): Promise<D.Product> => {
   return fetchJson(`http://secondhand.leanapp.cn/products/create/`, {
     method: 'POST',
     body: JSON.stringify(product),
     headers: {
       'Content-Type': 'application/json',
-      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+      'sessionToken': user.sessionToken,
     },
   });
 };
 
-const uploadImage = (image: D.UploadProductImage): Promise<any> => {
+const uploadImage = (image: D.UploadProductImage, user: D.User): Promise<any> => {
+  const { sessionToken } = user;
   const uri = image.img;
   let uriParts = uri.split('.');
   let fileType = uriParts[uriParts.length - 1];
@@ -68,7 +69,7 @@ const uploadImage = (image: D.UploadProductImage): Promise<any> => {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'multipart/form-data',
-      'sessionToken': 'hnknhew0gglhe3uczxbvva4rf',
+      sessionToken,
     },
   });
 

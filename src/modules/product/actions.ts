@@ -49,7 +49,7 @@ const getOwnProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thr
     });
 
 const uploadProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(UPLOAD_PRODUCT))
-    .chain((action: D.UploadProductAction) => fromPromise(uploadProductDetail(action.payload)))
+    .chain((action: D.UploadProductAction) => fromPromise(uploadProductDetail(action.payload, store.getState().user)))
     .map((uploadProductResponse) => {
         if (uploadProductResponse) {
             store.dispatch(NavigationActions.back());
@@ -58,8 +58,8 @@ const uploadProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thr
         return { type: UPLOAD_PRODUCT_FAIL }
     });
 
-const uploadProductImageEpic: Epic<D.GeneralAction> = (action$) => action$.thru(select(UPLOAD_PRODUCT_IMAGE))
-    .chain((action: D.UploadProductImageAction) => fromPromise(uploadImage(action.payload)))
+const uploadProductImageEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(UPLOAD_PRODUCT_IMAGE))
+    .chain((action: D.UploadProductImageAction) => fromPromise(uploadImage(action.payload, store.getState().user)))
     .map((uploadProductImageResponse) => {
         console.log(uploadProductImageResponse)
         return uploadProductImageResponse ?

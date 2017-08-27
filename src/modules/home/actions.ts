@@ -27,7 +27,7 @@ const fetchHomeProductsEpic: Epic<D.GeneralAction> = (action$) => action$.thru(s
     });
 
 const buyProductEpic: Epic<D.GeneralAction> = (action$, store) => action$.thru(select(BUY_PRODUCT))
-    .chain((action: D.BuyProductAction) => fromPromise(buyProduct(action.payload.objectId)))
+    .chain((action: D.BuyProductAction) => fromPromise(buyProduct(action.payload.objectId, store.getState().user.sessionToken)))
     .map((buyProductRespoonse: null | D.BuyProductResponse) => {
         if (buyProductRespoonse) {
             store.dispatch(NavigationActions.navigate({ routeName: 'Home' }));
